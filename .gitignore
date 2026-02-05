@@ -1,0 +1,29 @@
+# 虚拟环境（绝对不能传，体积大+无用）
+venv/
+# Python编译文件
+__pycache__/
+*.py[cod]
+*$py.class
+# Django数据库文件（你的本地sqlite3，传了没用还会冲突）
+db.sqlite3
+db.sqlite3-journal
+# 敏感信息配置文件（后续用来存SECRET_KEY/Redis密码等）
+.env
+# 静态文件/媒体文件（收集的静态文件、上传的文件）
+static/
+media/
+# 日志文件（项目运行的日志，不用传）
+*.log
+# Pycharm配置文件（你的编辑器配置，别人不用）
+.idea/
+# VSCode配置文件（可选，防止有vscode配置）
+.vscode/
+
+# Windows系统文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+# Celery相关临时文件
+celerybeat-schedule
+
+MyReadme.md
