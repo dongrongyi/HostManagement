@@ -1,4 +1,3 @@
-# 只保留这些导入，其余多余的全删！
 from server_room.models import ServerRoom
 from django.db import models
 from django.conf import settings
@@ -22,7 +21,7 @@ class Host(models.Model):
     def __str__(self):
         return self.hostname or self.ip
 
-    # Fernet解密
+    # Fernet解密   读plain_pwd时获取到的是经过解密的明文密码
     @property
     def plain_pwd(self):
         if not self.encrypted_pwd: # 未设置密码
@@ -34,7 +33,7 @@ class Host(models.Model):
         except InvalidToken:
             return "密码解密失败！密文被篡改或密钥错误"
 
-    # Fernet加密
+    # Fernet加密  写plain_pwd是把加密后的密码赋值给encrypted_pwd
     @plain_pwd.setter
     def plain_pwd(self, value):
         if value and isinstance(value, str):

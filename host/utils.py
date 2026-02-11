@@ -99,24 +99,3 @@ def update_host_pwd(host_ip: str, os_type: str, username: str, old_pwd: str, new
         return update_windows_pwd(host_ip, username, old_pwd, new_pwd)
     else:
         return False, f"不支持的系统类型：{os_type}"
-
-# 基于Fernet的明文-->密文
-def encrypt_pwd(plain_pwd: str) -> str:
-    """明文→Fernet密文（无明文拼接）"""
-    if not plain_pwd or not isinstance(plain_pwd, str):
-        return None
-    plain_bytes = plain_pwd.encode('utf-8')
-    cipher_bytes = settings.FERNET_PWD_CRYPT.encrypt(plain_bytes)
-    return cipher_bytes.decode('utf-8')
-
-# 基于Fernet的密文-->明文
-def decrypt_pwd(cipher_pwd: str) -> str:
-    """Fernet密文→明文"""
-    if not cipher_pwd or not isinstance(cipher_pwd, str):
-        return None
-    try:
-        cipher_bytes = cipher_pwd.encode('utf-8')
-        plain_bytes = settings.FERNET_PWD_CRYPT.decrypt(cipher_bytes)
-        return plain_bytes.decode('utf-8')
-    except InvalidToken:
-        raise ValueError("密码解密失败！密文被篡改、密钥错误或格式无效")

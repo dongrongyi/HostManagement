@@ -22,4 +22,5 @@ urlpatterns = [
     path('city/',include('city.urls')),
     path('server_room/',include('server_room.urls')),
     path('host/',include('host.urls')),
+    path('statistic/',include('statistic.urls')),
 ]

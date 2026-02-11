@@ -8,13 +8,14 @@ from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from host.models import Host
 from host.permissions import IsHostAdmin
 from host.serializers import HostSerializer
+
 class HostViewSet(viewsets.ModelViewSet):
     queryset = Host.objects.all()
     serializer_class = HostSerializer
+
     @action(detail=True, methods=['post'],url_path='ping') # 通过@action装饰器给视图集新增自定义方法，Router 会自动生成对应路由，支持GET/POST
     def ping(self, request, pk=None):
         host = self.get_object()
@@ -27,10 +28,10 @@ class HostViewSet(viewsets.ModelViewSet):
 
 # 审计日志器
 audit_logger = logging.getLogger("host_pwd_audit")
-# 新增：主机密码查看接口
+# 主机密码查看接口
 class HostPwdView(APIView):
     """
-    单台主机密码查看接口（仅超管/运维可访问）
+    单台主机密码查看接口（仅超管可访问）
     访问地址：/host/{pk}/pwd/
     请求方式：GET
     """
